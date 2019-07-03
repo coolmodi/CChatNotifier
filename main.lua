@@ -45,30 +45,72 @@ function _addon:ClearList()
     _addon:FillList();
 end
 
---- Output found message, play sound
--- @param msg The message to search in
+--- Form notification msg from msg format template
+-- @param search The found keyword
+-- @param source The source of the message
 -- @param from The player it is from
--- @param source The source of the message (SAY, CHANNEL)
--- @param channelName If source is CHANNEL this is the channel name
--- @param frameNum The chat tab to output to
-function _addon:Triggered(search, fstart, fend, msg, from, source, channelName, frameNum)
-    local searchOrig = string.sub(msg, fstart, fend);
-    local repl = "|cFF00FF00" .. searchOrig .. "|cFFffb178";
-    local notifyMsgFormat = "|cFFffb178" .. string.gsub(msg, searchOrig, repl);
-    local notifyString;
+-- @param msg The message from chat
+-- @param searchstart Start position of found keyword in message
+-- @param searchend End position of found keyword in message
+-- @return The finished message string
+function _addon:FormNotifyMsg(search, source, from, msg, searchstart, searchend)
+    local formed = CChatNotifier_settings.outputFormat;
+    
+    -- Default color
+    local fstart, fend = string.find(formed, "<<%x%x%x%x%x%x>>");
+    local defaultColor = "|r";
+    if fstart ~= nil then
+        defaultColor = "|cFF" .. string.sub(formed, fstart+2, fend-2);
+        formed = string.gsub(formed, "<<%x%x%x%x%x%x>>", defaultColor);
+    end
+    formed = string.gsub(formed, "<>", defaultColor);
 
-    if source == "SAY" then
-        notifyString = L["CHAT_NOTIFY_FOUND_SAYYELL"]:format(search, from, from, notifyMsgFormat);
-    else
-        notifyString = L["CHAT_NOTIFY_FOUND_CHANNEL"]:format(search, from, from, channelName, notifyMsgFormat);
+    -- Colors
+    fstart, fend = string.find(formed, "<%x%x%x%x%x%x>");
+    while fstart ~= nil do
+        formed = string.gsub(formed, string.sub(formed, fstart, fend), "|cFF"..string.sub(formed, fstart+1, fend-1));
+        fstart, fend = string.find(formed, "<%x%x%x%x%x%x>");
     end
 
-    _G["ChatFrame"..frameNum]:AddMessage(notifyString);
+    -- Placeholders
+    formed = string.gsub(formed, "{K}", search);
+    formed = string.gsub(formed, "{S}", source);
+    formed = string.gsub(formed, "{P}", string.format("|Hplayer:%s|h%s|h", from, from));
+
+    if searchstart > 1 then
+        formed = string.gsub(formed, "{MS}", string.sub(msg, 1, searchstart-1));
+    else
+        formed = string.gsub(formed, "{MS}", "");
+    end
+
+    formed = string.gsub(formed, "{MF}", string.sub(msg, searchstart, searchend));
+
+    if searchend < msg:len() then
+        formed = string.gsub(formed, "{ME}", string.sub(msg, searchend+1, msg:len()));
+    else
+        formed = string.gsub(formed, "{ME}", "");
+    end
+
+    local hours, minutes = GetGameTime();
+    formed = string.gsub(formed, "{T}", hours..":"..minutes);
+
+    return formed;
+end
+
+--- Output message to set chatframe
+-- @param notiMsg The message to post to chat
+-- @param frameNum The chat tab to output to
+function _addon:PostNotification(notiMsg, frameNum)
+    if strtrim(notiMsg):len() == 0 then
+        _addon:PrintError(L["ERR_NOTIFY_FORMAT_MISSING"]);
+    else
+        _G["ChatFrame"..frameNum]:AddMessage(notiMsg);
+    end
 
     if CChatNotifier_settings.playSound then
         PlaySoundFile(CChatNotifier_settings.soundId, "Master");
     end
-
+    
     FCF_StartAlertFlash(_G["ChatFrame"..frameNum]);
 end
 
@@ -88,7 +130,7 @@ end
 -- @param from The player it is from
 -- @param source The source of the message (SAY, CHANNEL)
 -- @param channelName If source is CHANNEL this is the channel name
-local function SearchMessage(msg, from, source, channelName)
+local function SearchMessage(msg, from, source)
     local msglow = string.lower(msg);
     local fstart, fend;
     for _, data in pairs(CChatNotifier_data) do
@@ -100,7 +142,7 @@ local function SearchMessage(msg, from, source, channelName)
                     if nameNoDash == playerName then
                         return;
                     end
-                    _addon:Triggered(search, fstart, fend, msg, nameNoDash, source, channelName, CChatNotifier_settings.chatFrame);
+                    _addon:PostNotification(_addon:FormNotifyMsg(search, source, from, msg, fstart, fend), CChatNotifier_settings.chatFrame);
                     return;
                 end
             end
@@ -146,19 +188,20 @@ function handlers.ADDON_LOADED(addonName)
         _addon:OpenList();
         print(L["FIRST_START_MSG"]);
         CChatNotifier_settings.firstStart = false;
+        CChatNotifier_settings.outputFormat = L["CHAT_NOTIFY_FORMAT"];
     end
 end
 
 function handlers.CHAT_MSG_CHANNEL(text, playerName, _, channelName)
-	SearchMessage(text, playerName, "CHANNEL", channelName);
+	SearchMessage(text, playerName, channelName);
 end
 
 function handlers.CHAT_MSG_SAY(text, playerName)
-	SearchMessage(text, playerName, "SAY");
+	SearchMessage(text, playerName, L["VICINITY"]);
 end
 
 function handlers.CHAT_MSG_YELL(text, playerName)
-	SearchMessage(text, playerName, "SAY");
+	SearchMessage(text, playerName, L["VICINITY"]);
 end
 
 frame:SetScript( "OnEvent",function(self, event, ...) 
