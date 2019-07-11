@@ -107,7 +107,7 @@ function _addon:PostNotification(notiMsg, frameNum)
         _G["ChatFrame"..frameNum]:AddMessage(notiMsg);
     end
 
-    if CChatNotifier_settings.playSound then
+    if CChatNotifier_settings.soundId > 0 then
         PlaySoundFile(CChatNotifier_settings.soundId, "Master");
     end
     

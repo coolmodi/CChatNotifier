@@ -10,6 +10,9 @@ L["CHAT_NOTIFY_FOUND_CHANNEL"] = "Found |cFF00FF00%s|r! |cFFFF66FF|Hplayer:%s|h[
 L["CHAT_NOTIFY_FORMAT"] = "<<ccaaaa>>[{T}] Found <00ff00>{K}<>! [{S}]<ff66ff>[{P}]<>: <ffffaa>{MS}<00ff00>{MF}<ffffaa>{ME}";
 L["ERR_NOTIFY_FORMAT_MISSING"] = "No format set, go into settings and create a format or reset it to default.";
 
+L["SOUND_NO_SOUND"] = "- No sound -";
+
+L["SETTINGS_HEAD_GENERAL"] = "General";
 L["SETTINGS_PLAY_SOUND"] = "Activate sound";
 L["SETTINGS_PLAY_SOUND_TT"] = "Play sound when a search keyword was found.";
 L["SETTINGS_TEST_CHAT"] = "Test notification";
@@ -23,9 +26,9 @@ L["SETTINGS_SOUNDID"] = "Notification sound:";
 L["SETTINGS_SOUNDID_TT"] = "Choose sound to play as notification.";
 L["SETTINGS_HEAD_FORMAT"] = "Notification Format";
 L["SETTINGS_FORMAT_DESC"] = 
-[[|cFFFFFF00You can set a custom format for the notification message! See default format for how to use it.
+[[You can set a custom format for the notification message! See default format for how to use it.
 
-Set colors using:
+|cFFFFFF00Set colors using:
 |cFF00FFFF<RRGGBB>|r Color subsequent text. RRGGBB is a hexcolor, use google if needed!
 |cFF00FFFF<<RRGGBB>>|r Define default color, white if not set.
 |cFF00FFFF<>|r Subsequent text will have the default color.

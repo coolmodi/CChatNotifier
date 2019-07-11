@@ -10,6 +10,9 @@ L["CHAT_NOTIFY_FOUND_CHANNEL"] = "Begriff |cFF00FF00%s|r gefunden! |cFFFF66FF|Hp
 L["CHAT_NOTIFY_FORMAT"] = "<<ccaaaa>>[{T}] <00ff00>{K}<> gefunden! [{S}]<ff66ff>[{P}]<>: <ffffaa>{MS}<00ff00>{MF}<ffffaa>{ME}";
 L["ERR_NOTIFY_FORMAT_MISSING"] = "Kein Format festgelegt, gehe in die Einstellungen um eines zu erstellen, oder auf den Standardwert zurückzusetzen.";
 
+L["SOUND_NO_SOUND"] = "- Kein Ton -";
+
+L["SETTINGS_HEAD_GENERAL"] = "Allgemein";
 L["SETTINGS_PLAY_SOUND"] = "Ton aktivieren";
 L["SETTINGS_PLAY_SOUND_TT"] = "Spiele Ton wenn ein Schlüsselwort gefunden wurde.";
 L["SETTINGS_TEST_CHAT"] = "Benachrichtigung testen";
@@ -23,9 +26,9 @@ L["SETTINGS_SOUNDID"] = "Benachrichtigungston:";
 L["SETTINGS_SOUNDID_TT"] = "Wähle welcher Ton als Benachrichtigung abgespielt werden soll.";
 L["SETTINGS_HEAD_FORMAT"] = "Benachrichtigungsformat";
 L["SETTINGS_FORMAT_DESC"] = 
-[[|cFFFFFF00Du kannst ein eigenes Format für Benachrichtigungen erstellen! Siehe Standardformat bezüglich Nutzung.
+[[Du kannst ein eigenes Format für Benachrichtigungen erstellen! Siehe Standardformat bezüglich Nutzung.
 
-Setze Farben mit:
+|cFFFFFF00Setze Farben mit:
 |cFF00FFFF<RRGGBB>|r Färbt nachfolgenden Text. RRGGBB ist eine Hexfarbe, nutze google wenn nötig!
 |cFF00FFFF<<RRGGBB>>|r Legt die Standardfarbe fest, weiß wenn nicht gesetzt.
 |cFF00FFFF<>|r Nachfolgender Text hat wieder Standardfarbe.
