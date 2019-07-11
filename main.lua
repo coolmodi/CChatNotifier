@@ -18,14 +18,14 @@ function _addon:AddToList(search)
     end
 
     CChatNotifier_data[search] = ntable;
-    _addon:FillList();
+    _addon:MainUI_UpdateList();
 end
 
 --- Remove entry from list
 -- @param search The string to remove
 function _addon:RemoveFromList(search)
     CChatNotifier_data[search] = nil;
-    _addon:FillList();
+    _addon:MainUI_UpdateList();
 end
 
 --- Toggle entry active state
@@ -42,7 +42,7 @@ end
 --- Clear the whole list
 function _addon:ClearList()
     wipe(CChatNotifier_data);
-    _addon:FillList();
+    _addon:MainUI_UpdateList();
 end
 
 --- Form notification msg from msg format template
@@ -181,11 +181,11 @@ function handlers.ADDON_LOADED(addonName)
     end
 	frame:UnregisterEvent("ADDON_LOADED");
     _addon:SetupSettings();
-    _addon:FillList();
+    _addon:MainUI_UpdateList();
     UpdateAddonState();
 
     if CChatNotifier_settings.firstStart then
-        _addon:OpenList();
+        _addon:MainUI_OpenList();
         print(L["FIRST_START_MSG"]);
         CChatNotifier_settings.firstStart = false;
         CChatNotifier_settings.outputFormat = L["CHAT_NOTIFY_FORMAT"];
@@ -217,7 +217,7 @@ frame:RegisterEvent("ADDON_LOADED");
 
 SLASH_CCHATNOTIFIER1 = "/ccn";
 SlashCmdList["CCHATNOTIFIER"] = function(arg)
-    _addon:OpenList();
+    _addon:MainUI_OpenList();
 end;
 
 

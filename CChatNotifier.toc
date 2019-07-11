@@ -14,5 +14,6 @@ i18n/deDE.lua
 
 main.lua
 settings.lua
-UI/listFrame.lua
+UI/MainUI.lua
+UI/MainUI_functions.lua
 UI/minimapButton.lua

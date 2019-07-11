@@ -36,7 +36,7 @@ mmicon.icon:SetPoint("CENTER",0,1);
 
 -- Open on click
 mmicon:SetScript("OnClick", function(self, arg1)
-    _addon:OpenList();
+    _addon:MainUI_OpenList();
 end)
 
 -- Tooltip
