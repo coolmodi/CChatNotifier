@@ -17,12 +17,20 @@ frame:SetMaxResize(400, MAX_ITEMS*LIST_ITEM_HEIGHT + HEIGHT_NO_CONTENT);
 frame:SetMinResize(250, MIN_ITEMS*LIST_ITEM_HEIGHT + HEIGHT_NO_CONTENT);
 frame:SetMovable(true);
 frame:EnableMouse(true);
-frame:RegisterForDrag("LeftButton");
-frame:SetScript("OnDragStart", frame.StartMoving);
-frame:SetScript("OnDragStop", frame.StopMovingOrSizing);
 frame.TitleText:SetText(_addonName);
 frame.portrait:SetTexture([[Interface\AddOns\CChatNotifier\img\logo]]);
 frame:Hide();
+
+-- Add drag area
+frame.dragBar = CreateFrame("Frame", nil, frame);
+frame.dragBar:SetPoint("TOPLEFT");
+frame.dragBar:SetPoint("BOTTOMRIGHT", frame.CloseButton, "TOPLEFT", 0, -40);
+frame.dragBar:SetScript("OnMouseDown", function(self)
+    self:GetParent():StartMoving();
+end);
+frame.dragBar:SetScript("OnMouseUp", function(self)
+    self:GetParent():StopMovingOrSizing();
+end);
 
 -- Delete button for delete all function
 frame.deleteBtn = CreateFrame("Button", nil, frame);
