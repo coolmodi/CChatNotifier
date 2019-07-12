@@ -90,8 +90,34 @@ end
 
 --- Update scroll frame 
 local function UpdateScrollFrame()
-    -- TODO: don't use this function
-    FauxScrollFrame_Update(CCNUI_MainUI.scrollFrame, entryCount, listElementCount, listItemHeight, nil, nil, nil, nil, nil, nil, true);
+    local scrollHeight = 0;
+	if entryCount > 0 then
+        scrollHeight = (entryCount - listElementCount) * listItemHeight;
+        if scrollHeight < 0 then
+            scrollHeight = 0;
+        end
+    end
+
+    local maxRange = (entryCount - listElementCount) * listItemHeight;
+    if maxRange < 0 then
+        maxRange = 0;
+    end
+
+    CCNUI_MainUI.scrollFrame.ScrollBar:SetMinMaxValues(0, maxRange);
+    CCNUI_MainUI.scrollFrame.ScrollBar:SetValueStep(listItemHeight);
+    CCNUI_MainUI.scrollFrame.ScrollBar:SetStepsPerPage(listElementCount-1);
+
+    if CCNUI_MainUI.scrollFrame.ScrollBar:GetValue() == 0 then
+        CCNUI_MainUI.scrollFrame.ScrollBar.ScrollUpButton:Disable();
+    else
+        CCNUI_MainUI.scrollFrame.ScrollBar.ScrollUpButton:Enable();
+    end
+
+    if (CCNUI_MainUI.scrollFrame.ScrollBar:GetValue() - scrollHeight) == 0 then
+        CCNUI_MainUI.scrollFrame.ScrollBar.ScrollDownButton:Disable();
+    else
+        CCNUI_MainUI.scrollFrame.ScrollBar.ScrollDownButton:Enable();
+    end	
 
     for line = 1, listElementCount, 1 do
       local offsetLine = line + FauxScrollFrame_GetOffset(CCNUI_MainUI.scrollFrame);
