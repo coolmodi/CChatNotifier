@@ -1,7 +1,7 @@
 local _addonName, _addon = ...;
 local L = _addon:GetLocalization();
 
-local HEIGHT_NO_CONTENT = 91;
+local HEIGHT_NO_CONTENT = 71;
 local listItemHeight = CCNUI_MainUI.scrollFrame.items[1]:GetHeight();
 local listElementCount = #CCNUI_MainUI.scrollFrame.items;
 local maxElementCount = listElementCount;

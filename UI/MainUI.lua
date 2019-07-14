@@ -4,7 +4,7 @@ local L = _addon:GetLocalization();
 local LIST_ITEM_HEIGHT = 27;
 local MAX_ITEMS = 14;
 local MIN_ITEMS = 9;
-local HEIGHT_NO_CONTENT = 91;
+local HEIGHT_NO_CONTENT = 71;
 
 -- Main frame
 local frame = CreateFrame("Frame", "CCNUI_MainUI", UIParent, "ButtonFrameTemplate");
@@ -20,6 +20,8 @@ frame:EnableMouse(true);
 frame.TitleText:SetText(_addonName);
 frame.portrait:SetTexture([[Interface\AddOns\CChatNotifier\img\logo]]);
 frame:Hide();
+
+ButtonFrameTemplate_HideButtonBar(frame);
 
 -- Add drag area
 frame.dragBar = CreateFrame("Frame", nil, frame);
@@ -62,11 +64,10 @@ frame.settingsBtn:SetHighlightTexture([[interface/scenarios/scenarioicon-interac
 
 -- Resize knob
 frame.resizeBtn = CreateFrame("Button", nil, frame);
-frame.resizeBtn:SetSize(18, 18);
-frame.resizeBtn:SetPoint("BOTTOMRIGHT", -3, 3);
-frame.resizeBtn:SetNormalTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up]]);
-frame.resizeBtn:SetHighlightTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Highlight]]);
-frame.resizeBtn:SetPushedTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Down]]);
+frame.resizeBtn:SetSize(64, 18);
+frame.resizeBtn:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", -3, 1);
+frame.resizeBtn:SetNormalTexture([[Interface\AddOns\CChatNotifier\img\grabber_s]]);
+frame.resizeBtn:SetHighlightTexture([[Interface\AddOns\CChatNotifier\img\grabber]]);
 
 
 ----------------------------------------------------------------------------------------------------------------
