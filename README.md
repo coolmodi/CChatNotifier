@@ -14,6 +14,3 @@ This is my minimalistic idea of a "LFG" addon. I don't want to look at chat 24/7
 ![The UI](images/ui.png)
 
 ![Word found](images/found.png)
-
-#### Note
-Not tested in classic yet, notification sound probably throws an error, settings button texture probably missing. Otherwise *should* work. Will test and fix once I have access to the game again.
