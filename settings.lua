@@ -5,7 +5,7 @@ local DEFAULTSETTINGS = {
     ["firstStart"] = true,
     ["isActive"] = true,
     ["chatFrame"] = 1,
-    ["soundId"] = 567421,
+    ["soundId"] = "sound/interface/itellmessage.ogg",
     ["showMinimapButton"] = true,
     ["snapToMinimap"] = true,
     ["outputFormat"] = "", -- fill from localization
@@ -13,13 +13,13 @@ local DEFAULTSETTINGS = {
 };
 
 local SOUNDS = {
-    [0] = L["SOUND_NO_SOUND"],
-    [567094] = "Fog horn", -- sound/Doodad/LightHouseFogHorn.ogg
-    [567421] = "Whisper", --sound/interface/itellmessage.ogg
-    [539885] = "Dwarf", -- sound/character/dwarf/dwarfmale/dwarfmaledeatha.ogg
-    [567671] = "Something", -- sound/item/weapons/bow/arrowhitc.ogg	
-    [567672] = "Something2", -- sound/item/weapons/bow/arrowhita.ogg
-    [567653] = "Hurts my ears", -- sound/item/weapons/axe2h/m2haxehitmetalweaponcrit.ogg
+    [""] = L["SOUND_NO_SOUND"],
+    ["sound/Doodad/LightHouseFogHorn.ogg"] = "Fog horn", 		                    -- 567094
+    ["sound/interface/itellmessage.ogg"] = "Whisper", 		                        -- 567421
+    ["sound/character/dwarf/dwarfmale/dwarfmaledeatha.ogg"] = "Dwarf", 		        -- 539885
+    ["sound/item/weapons/bow/arrowhitc.ogg"] = "Something", 	                    -- 567671
+    ["sound/item/weapons/bow/arrowhita.ogg"] = "Something2",                        -- 567672
+    ["sound/item/weapons/axe2h/m2haxehitmetalweaponcrit.ogg"] = "Hurts my ears"     -- 567653
 };
 
 --- Handle stuff after settings changed, if needed

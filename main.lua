@@ -72,6 +72,12 @@ function _addon:FormNotifyMsg(search, source, from, msg, searchstart, searchend)
         fstart, fend = string.find(formed, "<%x%x%x%x%x%x>");
     end
 
+    -- remove server dash
+    local dashLoc = string.find(from, "-");
+    if dashLoc ~= nil then
+        from = string.sub(from, 1, dashLoc-1);
+    end
+
     -- Placeholders
     formed = string.gsub(formed, "{K}", search);
     formed = string.gsub(formed, "{S}", source);
@@ -92,6 +98,8 @@ function _addon:FormNotifyMsg(search, source, from, msg, searchstart, searchend)
     end
 
     local hours, minutes = GetGameTime();
+    if hours < 10 then hours = "0" .. hours; end
+    if minutes < 10 then minutes = "0" .. minutes; end
     formed = string.gsub(formed, "{T}", hours..":"..minutes);
 
     return formed;
@@ -107,7 +115,7 @@ function _addon:PostNotification(notiMsg, frameNum)
         _G["ChatFrame"..frameNum]:AddMessage(notiMsg);
     end
 
-    if CChatNotifier_settings.soundId > 0 then
+    if CChatNotifier_settings.soundId ~= "" then
         PlaySoundFile(CChatNotifier_settings.soundId, "Master");
     end
     
