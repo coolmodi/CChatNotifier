@@ -1,7 +1,7 @@
-## Interface: 11302
+## Interface: 20501
 ## Title: CChatNotifier
 ## Author: coolmodi
-## Version: 1.0
+## Version: 1.1
 ## Notes: Watchs chat and notifies you if it finds words you look for.
 ## Notes-deDE: Beobachtet Chat und benachrichtigt dich wenn es gesuchte Wörter findet.
 ## SavedVariablesPerCharacter: CChatNotifier_settings, CChatNotifier_data

@@ -95,7 +95,7 @@ end
 -- @param height (optional)
 -- @param isMultiline (optional)
 local function MakeEditBox(parent, maxLen, height, isMultiline)
-    local edit = CreateFrame("EditBox", nil, parent);
+    local edit = CreateFrame("EditBox", nil, parent, "BackdropTemplate");
     edit:SetMaxLetters(maxLen);
     edit:SetAutoFocus(false);
     if height then
@@ -271,7 +271,7 @@ local function CreateListElement(pos)
         return; 
     end
 	
-	local item = CreateFrame("Frame", nil, scrollFrame);
+	local item = CreateFrame("Frame", nil, scrollFrame, "BackdropTemplate");
 	item:SetHeight(LISTITEMHEIGHT);
 	
 	if pos == 1 then
@@ -302,7 +302,7 @@ local function CreateListElement(pos)
 		_addon:RemoveFromList(self:GetParent().searchString:GetText());
 	end)
 
-    item.disb = CreateFrame("Button", nil, item);
+    item.disb = CreateFrame("Button", nil, item, "BackdropTemplate");
 	item.disb:SetWidth(12);
 	item.disb:SetHeight(12);
 	item.disb:SetPoint("RIGHT", item.delb, "LEFT", -17, 0);
