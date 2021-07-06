@@ -143,15 +143,26 @@ local function SearchMessage(msg, from, source)
     local fstart, fend;
     for _, data in pairs(CChatNotifier_data) do
         if data.active then
+            local black = false
             for _, search in ipairs(data.words) do
-                fstart, fend = string.find(msglow, search);
-                if fstart ~= nil then
-                    local nameNoDash = RemoveServerDash(from);
-                    if nameNoDash == playerName then
+                if (search:sub(1,1) == '-') then
+                    fstart, fend = string.find(msglow, search:sub(2));
+                    if fstart ~= nil then
+                        black = true
+                    end
+                end
+            end
+            if (not black) then
+                for _, search in ipairs(data.words) do
+                    fstart, fend = string.find(msglow, search);
+                    if fstart ~= nil then
+                        local nameNoDash = RemoveServerDash(from);
+                        if nameNoDash == playerName then
+                            return;
+                        end
+                        _addon:PostNotification(_addon:FormNotifyMsg(search, source, from, msg, fstart, fend), CChatNotifier_settings.chatFrame);
                         return;
                     end
-                    _addon:PostNotification(_addon:FormNotifyMsg(search, source, from, msg, fstart, fend), CChatNotifier_settings.chatFrame);
-                    return;
                 end
             end
         end
